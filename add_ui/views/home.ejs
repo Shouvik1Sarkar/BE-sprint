@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Short URL</title>
+
+    <link rel="stylesheet" href="/stylesheet/style.css" />
+  </head>
+
+  <body>
+    <!-- NAVBAR -->
+    <nav>
+      <div class="logo">MySite</div>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="#">Shorten</a>
+        <a href="#">About</a>
+      </div>
+    </nav>
+
+    <!-- SHORT URL SECTION -->
+    <main class="shortener">
+      <h1>Shorten Your URL</h1>
+      <p>Paste a long URL and generate a clean, short link.</p>
+
+      <div class="shortener-box">
+        <form action="/url/" name="shortId" method="POST">
+          <input
+            type="url"
+            name="shortId"
+            placeholder="https://example.com/very/long/url"
+            required
+          />
+          <button type="submit">Generate</button>
+        </form>
+      </div>
+
+      <!-- Show result if id exists -->
+      <% if (typeof id !== 'undefined') { %>
+      <div class="result">
+        <span>Your short URL</span>
+        <div class="result-box">
+          <p>http://localhost:8000/url/<%= id %></p>
+          <button
+            onclick="navigator.clipboard.writeText('http://localhost:8000/url/<%= id %>')"
+          >
+            Copy
+          </button>
+        </div>
+      </div>
+      <% } %>
+      <div>
+        <span>Stats</span>
+        <div>
+          <p>Number of clicks <%= clicks %></p>
+          <p>times <%= times %></p>
+        </div>
+      </div>
+
+      <!-- RESULT BOX -->
+      <div class="result">
+        <span>Your short URL</span>
+        <div class="result-box">
+          <p>https://sho.rt/abc123</p>
+          <button>Copy</button>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

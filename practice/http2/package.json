@@ -1,0 +1,16 @@
+{
+  "name": "http_again",
+  "version": "1.0.0",
+  "description": "http again",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "shouvik sarkar",
+  "license": "ISC",
+  "dependencies": {
+    "url": "^0.11.4"
+  }
+}
