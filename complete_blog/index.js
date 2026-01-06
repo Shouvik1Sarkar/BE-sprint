@@ -5,7 +5,8 @@ const app = express();
 const port = 3000;
 import path from "path";
 import userRouter from "./routes/user.js";
-
+import { checkForAuthenticationCookie } from "./middleware/authentication.js";
+import cookieParser from "cookie-parser";
 import connectdb from "./connections/connect.js";
 
 app.set("view engine", "ejs");
@@ -13,8 +14,12 @@ app.set("views", path.resolve("./views"));
 
 connectdb(process.env.MONGODB_URI);
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(checkForAuthenticationCookie("token"));
 app.get("/", (req, res) => {
-  res.render("home");
+  res.render("home", {
+    user: req.user,
+  });
 });
 
 app.use("/", userRouter);

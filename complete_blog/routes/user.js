@@ -16,10 +16,26 @@ router.post("/signup", async (req, res) => {
   return res.redirect("/");
 });
 router.post("/signin", async (req, res) => {
-  const { email, password } = req.body;
-  const user = await User.matchPassword(email, password);
-  console.log("USER: ", user);
-  return res.redirect("/");
+  try {
+    const { email, password } = req.body;
+    const token = await User.matchPasswordAndGnerateToken(email, password);
+    console.log("USER: ", token);
+    return res.cookie("token", token).redirect("/");
+  } catch (error) {
+    return res.render("signin", {
+      error: "Wrong email or password",
+    });
+  }
+});
+router.get("/logout", async (req, res) => {
+  try {
+    res.clearCookie("token");
+    return res.render("signin");
+  } catch (error) {
+    return res.render("signin", {
+      error: "Wrong email or password",
+    });
+  }
 });
 
 export default router;
