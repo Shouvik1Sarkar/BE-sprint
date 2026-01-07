@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/header') %>
+    <title>Bootstrap demo</title>
+  </head>
+  <body>
+    <%- include('./partials/nav') %>
+    <br />
+    <div class="container mt-3">
+      <form action="/blog/" method="post">
+        <div class="form-group mb-3">
+          <label for="coverImageUrl">coverImage</label>
+          <input
+            type="file"
+            class="form-control"
+            id="coverImageUrlId"
+            name="coverImageUrl"
+            aria-describedby="coverImageUrl"
+            placeholder="coverImage"
+          />
+        </div>
+        <div class="form-group">
+          <label for="title">Email address</label>
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            name="title"
+            aria-describedby="title"
+            placeholder="title"
+          />
+        </div>
+        <div class="form-group mt-3">
+          <label for="body">content</label>
+          <textarea
+            class="form-control"
+            id="body"
+            name="body"
+            placeholder="body"
+            rows="4"
+          ></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+      </form>
+    </div>
+
+    <br />
+    <%- include('./partials/scripts') %>
+  </body>
+</html>
