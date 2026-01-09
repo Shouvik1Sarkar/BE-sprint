@@ -35,12 +35,13 @@ app.use(cookieParser());
 
 app.use(express.urlencoded({ extended: true }));
 app.use(checkAuthentication("token"));
+app.use(express.static(path.resolve("./public")));
 
-app.get("/", (req, res) => {
-  return res.render("home", {
-    user: req.user,
-  });
-});
+// app.get("/", (req, res) => {
+//   return res.render("home", {
+//     user: req.user,
+//   });
+// });
 
 app.use("/", userRoute);
 app.use("/blog", blogRoute);

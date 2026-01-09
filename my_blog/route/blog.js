@@ -22,7 +22,7 @@ const upload = multer({ storage: storage });
 blogRoute.get("/add_blog", async (req, res) => {
   return res.render("add_blog");
 });
-blogRoute.post("/", upload.single("coverImageUrl"), async (req, res) => {
+blogRoute.post("/", upload.single("coverImage"), async (req, res) => {
   const { title, body } = req.body;
   const blog = await Blog.create({
     title,

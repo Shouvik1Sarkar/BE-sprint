@@ -8,14 +8,14 @@
     <%- include('./partials/nav') %>
     <br />
     <div class="container mt-3">
-      <form action="/blog/" method="post">
+      <form action="/blog/" method="post" enctype="multipart/form-data">
         <div class="form-group mb-3">
           <label for="coverImageUrl">coverImage</label>
           <input
             type="file"
             class="form-control"
             id="coverImageUrlId"
-            name="coverImageUrl"
+            name="coverImage"
             aria-describedby="coverImageUrl"
             placeholder="coverImage"
           />

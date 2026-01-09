@@ -8,6 +8,20 @@
     <%- include('./partials/nav') %>
     <br />
     <h1>Hello</h1>
+    <% if (locals.blogs) { %> <% blogs.forEach(blog => { %>
+    <div class="card" style="width: 18rem">
+      <img
+        class="card-img-top"
+        src="<%= blog.coverImageUrl %>"
+        alt="Card image cap"
+      />
+      <div class="card-body">
+        <h5 class="card-title"><%= blog.title %></h5>
+
+        <a href="#" class="btn btn-primary">read</a>
+      </div>
+    </div>
+    <% }) %> <% } else {%> <% } %>
 
     <br />
     <%- include('./partials/scripts') %>

@@ -3,6 +3,7 @@ import multer from "multer";
 
 import path from "path";
 import Blog from "../models/blog.js";
+import Comment from "../models/comment.js";
 
 const router = express.Router();
 
@@ -23,6 +24,21 @@ router.get("/add-new", async (req, res) => {
     user: req.user,
   });
 });
+
+router.get("/:id", async (req, res) => {
+  const blog = await Blog.findById(req.params.id).populate("createdBy");
+  const comments = await Comment.find({ blogId: req.params.id }).populate(
+    "createdBy"
+  );
+  console.log("BLOG: ", blog);
+  console.log("comments: ", comments);
+  return res.render("blog", {
+    user: req.user,
+    blog,
+    comments,
+  });
+});
+
 router.post("/", upload.single("coverImage"), async (req, res) => {
   const { title, body } = req.body;
   const blog = await Blog.create({
@@ -32,5 +48,14 @@ router.post("/", upload.single("coverImage"), async (req, res) => {
     coverImageUrl: `/uploads/${req.file.filename}`,
   });
   return res.redirect(`/blog/${blog._id}`);
+});
+
+router.post("/comment/:blogId", async (req, res) => {
+  const comment = await Comment.create({
+    comment: req.body.comment,
+    blogId: req.params.blogId,
+    createdBy: req.user._id,
+  });
+  return res.redirect(`/blog/${req.params.blogId}`);
 });
 export default router;

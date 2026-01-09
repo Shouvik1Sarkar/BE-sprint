@@ -1,6 +1,8 @@
 import express from "express";
 import User from "../models/user.js";
 import { setUser } from "../services/logInAuth.js";
+import Blog from "../models/blog.js";
+import { render } from "ejs";
 
 const userRoute = express.Router();
 
@@ -46,5 +48,11 @@ userRoute.get("/user/logout", async (req, res) => {
   return res.clearCookie("token").redirect("/");
   // return res.render("signin");
 });
-
+userRoute.get("/", async (req, res) => {
+  const blogs = await Blog.find({});
+  console.log("BLOGS: ", blogs);
+  return res.render("home", {
+    blogs: blogs,
+  });
+});
 export default userRoute;
