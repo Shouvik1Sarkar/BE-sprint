@@ -49,9 +49,11 @@ userRoute.get("/user/logout", async (req, res) => {
   // return res.render("signin");
 });
 userRoute.get("/", async (req, res) => {
+  console.log("REWQ.USER:", req.user);
   const blogs = await Blog.find({});
   console.log("BLOGS: ", blogs);
   return res.render("home", {
+    user: req.user,
     blogs: blogs,
   });
 });

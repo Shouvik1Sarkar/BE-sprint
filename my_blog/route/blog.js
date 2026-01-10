@@ -4,6 +4,7 @@ import { setUser } from "../services/logInAuth.js";
 import Blog from "../models/blog.js";
 import path from "path";
 import multer from "multer";
+import Comment from "../models/comment.js";
 
 const blogRoute = express.Router();
 
@@ -30,9 +31,32 @@ blogRoute.post("/", upload.single("coverImage"), async (req, res) => {
     createdBy: req.user._id,
     coverImageUrl: `/uploads/${req.file.filename}`,
   });
-  return res.render("home", {
-    blog: blog,
+  return res.redirect(`/blog/${blog._id}`);
+});
+
+blogRoute.get("/:id", async (req, res) => {
+  const blogId = req.params.id;
+  const blog = await Blog.findById({ _id: blogId }).populate("createdBy");
+  const comments = await Comment.find({ blogId: req.params.id }).populate(
+    "createdBy"
+  );
+  console.log("999999: ", comments);
+  return res.render("blog", {
+    user: req.user,
+    blog,
+    comments,
   });
+});
+
+blogRoute.post("/comment/:id", async (req, res) => {
+  const comment = await Comment.create({
+    comment: req.body.comment,
+    createdBy: req.user._id,
+    blogId: req.params.id,
+  });
+  console.log("COMMENT", comment);
+  // return res.render("blog", {});
+  return res.redirect(`/blog/${req.params.id}`);
 });
 
 export default blogRoute;

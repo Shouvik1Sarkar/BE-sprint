@@ -5,8 +5,10 @@ function setUser(user) {
   console.log("usr====+++++", user);
   const pay_load = {
     _id: user._id,
+    fullName: user.fullName,
     email: user.email,
     fullName: user.fullName,
+    profileImage: user.profileImage,
   };
   const cookie_token = jwt.sign(pay_load, secret);
   return cookie_token;
@@ -17,6 +19,7 @@ function getUser(token) {
   }
   const user = jwt.verify(token, secret);
   console.log("LLLLLLL: ", user);
+  // req.user = user;
   return user;
 }
 export { setUser, getUser };
